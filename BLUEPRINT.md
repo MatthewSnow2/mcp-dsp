@@ -43,18 +43,18 @@ Track implementation progress across all phases. Check boxes as features are com
 ---
 
 ## Phase 1B: BepInEx Plugin
-**Status**: Not Started
+**Status**: In Progress
 **Goal**: Real-time game data extraction via Harmony patches
 
-- [ ] BepInEx plugin initialization (Plugin.cs)
-- [ ] Harmony patch infrastructure
-- [ ] ProductionPatch - track assembler output
-- [ ] PowerPatch - track power generation/consumption
-- [ ] LogisticsPatch - track belt throughput
-- [ ] MetricsCollector for aggregating data
-- [ ] MetricsSnapshot data model
-- [ ] WebSocket server implementation
-- [ ] Configuration system (BepInEx config)
+- [x] BepInEx plugin initialization (Plugin.cs)
+- [x] Harmony patch infrastructure
+- [x] ProductionPatch - track assembler output
+- [x] PowerPatch - track power generation/consumption
+- [x] LogisticsPatch - track belt throughput
+- [x] MetricsCollector for aggregating data
+- [x] MetricsSnapshot data model
+- [x] WebSocket server implementation
+- [x] Configuration system (BepInEx config)
 - [ ] Plugin testing in-game
 
 **Success Criteria**:
@@ -172,6 +172,14 @@ Track implementation progress across all phases. Check boxes as features are com
 - 28 unit tests passing
 - Need real DSP save file to test full parsing
 
+### 2024-12-26: Phase 1B Progress
+- Created Plugin.cs with BepInEx initialization and configuration
+- Implemented MetricsSnapshot data model with JSON serialization
+- Created MetricsCollector with thread-safe accumulator pattern
+- Implemented Harmony patches for Production, Power, and Logistics
+- Created WebSocketServer implementing RFC 6455 protocol
+- Plugin ready for in-game testing
+
 ### Architecture Decision: Vendoring
 The dsp_save_parser library doesn't have setup.py/pyproject.toml, so we vendor it directly
 in `src/mcp_server/vendor/dsp_save_parser/`. This ensures reproducible builds.
@@ -179,4 +187,4 @@ in `src/mcp_server/vendor/dsp_save_parser/`. This ensures reproducible builds.
 ---
 
 **Last Updated**: 2024-12-26
-**Current Phase**: Phase 1A (Save File Analysis)
+**Current Phase**: Phase 1B (BepInEx Plugin - Testing)
