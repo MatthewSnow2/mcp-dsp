@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyName>DysonMCP</AssemblyName>
+    <RootNamespace>DysonMCP</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>MCP integration plugin for Dyson Sphere Program</Description>
+    <Authors>Matthew</Authors>
+    <Company>Me, Myself Plus AI LLC</Company>
+    <Product>DysonMCP</Product>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <!-- BepInEx References -->
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="5.4.22" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.1.0" />
+    <PackageReference Include="HarmonyX" Version="2.10.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <!--
+    DSP Game References
+    These need to be copied from your DSP installation:
+    %DSP_PATH%\DSPGAME_Data\Managed\
+
+    Set DSP_REFS environment variable to point to your reference directory
+    or update HintPath below.
+  -->
+  <ItemGroup Condition="Exists('$(DSP_REFS)')">
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(DSP_REFS)\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(DSP_REFS)\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(DSP_REFS)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(DSP_REFS)\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Auto-copy to DSP plugins folder on build (when DSP_PATH is set) -->
+  <Target Name="CopyToPlugins" AfterTargets="PostBuildEvent" Condition="'$(DSP_PATH)' != ''">
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="$(DSP_PATH)\BepInEx\plugins\"
+          SkipUnchangedFiles="true" />
+    <Message Text="Copied $(TargetFileName) to BepInEx plugins folder" Importance="high" />
+  </Target>
+</Project>
